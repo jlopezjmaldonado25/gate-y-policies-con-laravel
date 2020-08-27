@@ -19,26 +19,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::put('admin/posts/{post}', function (Post $post, Request $request) {
+//Route::put('admin/posts/{post}', 'Admin\PostController@update')->middleware('can:update,post');
+//Route::put('admin/posts/{post}', 'Admin\PostController@update');
 
-   /*  if(auth()->guest()){
-        abort('401');
-    }
+Route::middleware('auth')->namespace('Admin\\')->group(function () {
+    Route::post('admin/posts', 'PostController@store');
 
-    if(auth()->user()->cant('update', $post)){
-        abort('403');
-    } */
-
-   /*  if(Gate::denies('update', $post)){
-        abort('403');
-    } */
-
-    $post->update([
-        'title' => $request->title
-    ]);
-
-    return 'Post updated!';
-})->middleware('can:update,post');
+    Route::put('admin/posts/{post}', 'PostController@update');
+});
 
 Route::name('login')->get('login', function () {
     return 'Login';

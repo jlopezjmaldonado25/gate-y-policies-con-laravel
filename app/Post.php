@@ -8,7 +8,7 @@ class Post extends Model
 {
 
     protected $fillable = ['title'];
-    //protected $guarded = [];
+    //protected $guarded  = [];
 
     public function isPublished()
     {
