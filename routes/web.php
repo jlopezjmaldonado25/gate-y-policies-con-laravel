@@ -22,16 +22,24 @@ Route::get('/', function () {
 //Route::put('admin/posts/{post}', 'Admin\PostController@update')->middleware('can:update,post');
 //Route::put('admin/posts/{post}', 'Admin\PostController@update');
 
-Route::middleware('auth')->namespace('Admin\\')->group(function () {
-    Route::post('admin/posts', 'PostController@store');
+Route::middleware('auth')->namespace('Admin\\')->prefix('admin/')->group(function () {
+    Route::get('posts', 'PostController@index');
 
-    Route::put('admin/posts/{post}', 'PostController@update');
+    Route::post('posts', 'PostController@store');
+
+    Route::get('posts/{post}/edit', 'PostController@edit')->name('posts.edit');
+
+    Route::put('posts/{post}', 'PostController@update');
 });
 
-Route::name('login')->get('login', function () {
-    return 'Login';
-});
+//Route::name('login')->get('login', function () {
+    //return 'Login';
+//});
 
-Route::name('register')->get('register', function () {
-    return 'Register';
-});
+//Route::name('register')->get('register', function () {
+    //return 'Register';
+//});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

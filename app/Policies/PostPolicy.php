@@ -57,6 +57,10 @@ class PostPolicy
         return $user->owns($post) && !$post->isPublished();
     }
 
+    public function report(){
+        return true;
+    }
+
     /**
      * Determine whether the user can restore the post.
      *
