@@ -14,6 +14,7 @@ class PostController extends Controller
     public function index(){
 
         $posts = Post::query()
+            ->with('author')
             ->unless(auth()->user()->isAdmin(), function ($q) {
                 $q->where('user_id', auth()->id());
             })
@@ -33,7 +34,7 @@ class PostController extends Controller
         $this->authorize('create', Post::class);
 
         $request->user()->posts()->create([
-            'user_id' => $request->user()->id,
+            //'user_id' => $request->user()->id,
             'title'   => $request->title,
         ]);
 

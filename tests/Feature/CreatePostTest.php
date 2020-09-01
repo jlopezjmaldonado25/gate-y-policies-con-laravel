@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Post;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,9 +24,17 @@ class CreatePostTest extends TestCase
 
         $response->assertStatus(201)->assertSee('Post created');
 
-        $this->assertDatabaseHas('posts', [
+        // Alternative: Test with Eloquent instead of the assertDatabaseHas helper:
+
+        tap(Post::first(), function ($post) {
+            $this->assertNotNull($post, 'The post was not created');
+
+            $this->assertSame('New post', $post->title);
+        });
+
+       /*  $this->assertDatabaseHas('posts', [
             'title' => 'New post',
-        ]);
+        ]); */
     }
 
     /** @test */
@@ -57,10 +66,13 @@ class CreatePostTest extends TestCase
             'title' => 'New post'
         ]);
 
-        $response->assertStatus(403);
+        //$response->assertStatus(403);
 
-        $this->assertDatabaseMissing('posts', [
+        /* $this->assertDatabaseMissing('posts', [
             'title' => 'New post',
-        ]);
+        ]); */
+
+        // Alternative: Test with a custom database helper
+        $this->assertDatabaseEmpty('posts');
     }
 }

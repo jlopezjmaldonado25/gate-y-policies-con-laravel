@@ -28,6 +28,8 @@ class ListPostTest extends TestCase
             ->assertViewHas('posts', function ($posts) use ($post1, $post2) {
                 return $posts->contains($post1) && $posts->contains($post2);
             });
+
+        $this->assertNotRepeatedQueries();
     }
 
     /** @test */
