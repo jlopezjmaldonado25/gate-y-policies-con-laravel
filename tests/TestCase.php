@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\User;
+use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -12,6 +13,19 @@ abstract class TestCase extends BaseTestCase
     public function setUp()
     {
         parent::setUp();
+
+        TestResponse::macro('viewData', function ($key) {
+            $this->ensureResponseHasView();
+
+            $this->assertViewHas($key);
+
+            return $this->original->$key;
+        });
+
+        TestResponse::macro('assertViewCollection', function ($var) {
+            return new TestCollectionData($this->viewData($var));
+        });
+
 
         $this->enableQueryLog();
     }
