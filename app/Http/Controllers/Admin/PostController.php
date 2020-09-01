@@ -13,7 +13,12 @@ class PostController extends Controller
 
     public function index(){
 
-        $posts = Post::paginate();
+        $posts = Post::query()
+            ->unless(auth()->user()->isAdmin(), function ($q) {
+                $q->where('user_id', auth()->id());
+            })
+            ->paginate();
+
 
         return view('admin.posts.index', compact('posts'));
     }
