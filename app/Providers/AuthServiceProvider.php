@@ -29,10 +29,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::before(function (User $user) {
+        /* Gate::before(function (User $user) {
             if ($user->isAdmin()) {
                 return true;
             }
+        }); */
+
+        Gate::define('view-dashboard', function (User $user) {
+            return $user->role === 'author';
         });
 
         // Así como Laravel nos permite definir varias rutas de una sola vez con los controladores de tipo recurso o Resource,

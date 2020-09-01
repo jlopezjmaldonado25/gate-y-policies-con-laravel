@@ -10,6 +10,17 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability){
+
+        //dd($ability);
+
+        if($user->isAdmin()){
+
+            return true;
+        }
+
+    }
+
     /**
      * Determine whether the user can view the post.
      *
@@ -83,5 +94,9 @@ class PostPolicy
     public function forceDelete(User $user, Post $post)
     {
         //
+    }
+
+    public function deleteAll(){
+        return false;
     }
 }
