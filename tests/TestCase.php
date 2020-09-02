@@ -48,7 +48,14 @@ abstract class TestCase extends BaseTestCase
     {
         $user =  factory(User::class)->create();
 
-        $user->allow()->everything();
+        //$user->allow()->everything();
+
+
+        // allow the role 'admin' to have access to everything
+        Bouncer::allow('admin')->everything();
+
+        // assign role 'admin' to $user
+        Bouncer::assign('admin')->to($user);
 
         // assign role 'admin' to $user
         //Bouncer::assign('admin')->to($user);

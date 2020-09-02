@@ -13,9 +13,6 @@ class PostPolicy
     public function before($user, $ability){
 
         //dd($ability);
-
-
-
     }
 
     /**
@@ -40,18 +37,6 @@ class PostPolicy
     {
         return $user->isAn('author');
     } */
-
-    /**
-     * Determine whether the user can update the post.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Post  $post
-     * @return mixed
-     */
-    public function update(User $user, Post $post)
-    {
-        return $user->owns($post);
-    }
 
     /**
      * Determine whether the user can delete the post.
