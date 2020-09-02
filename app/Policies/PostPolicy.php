@@ -14,10 +14,7 @@ class PostPolicy
 
         //dd($ability);
 
-        if($user->isAdmin()){
 
-            return true;
-        }
 
     }
 
@@ -39,10 +36,10 @@ class PostPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+   /*  public function create(User $user)
     {
-        return $user->role === 'author';
-    }
+        return $user->isAn('author');
+    } */
 
     /**
      * Determine whether the user can update the post.

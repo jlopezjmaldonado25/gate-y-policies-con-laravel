@@ -35,9 +35,9 @@ class AuthServiceProvider extends ServiceProvider
             }
         }); */
 
-        Gate::define('view-dashboard', function (User $user) {
+/*         Gate::define('view-dashboard', function (User $user) {
             return $user->role === 'author';
-        });
+        }); */
 
         // Así como Laravel nos permite definir varias rutas de una sola vez con los controladores de tipo recurso o Resource,
         // también podemos definir varios permisos con una sola línea si utilizamos Gate::resource
