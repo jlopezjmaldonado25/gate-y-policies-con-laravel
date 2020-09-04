@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use Bouncer;
 use App\User;
+use BouncerSeeder;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -27,6 +27,7 @@ abstract class TestCase extends BaseTestCase
             return new TestCollectionData($this->viewData($var));
         });
 
+        $this->seed(BouncerSeeder::class);
 
         $this->enableQueryLog();
     }
@@ -44,26 +45,12 @@ abstract class TestCase extends BaseTestCase
         return factory(User::class)->create($attributes);
     }
 
-     protected function createAdmin()
+    protected function createAdmin()
     {
-        $user =  factory(User::class)->create();
-
-        //$user->allow()->everything();
-
-
-        // allow the role 'admin' to have access to everything
-        Bouncer::allow('admin')->everything();
-
-        // assign role 'admin' to $user
-        Bouncer::assign('admin')->to($user);
-
-        // assign role 'admin' to $user
-        //Bouncer::assign('admin')->to($user);
-
-        // allow the role 'admin' to have access to everything
-        //Bouncer::allow('admin')->everything();
-
-        return $user;
+        return tap(factory(User::class)->create(), function ($user) {
+            // assign role 'admin' to $user
+            $user->assign('admin');
+        });
     }
 
     protected function assertDatabaseEmpty($table, $connection = null)

@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Post;
 use Tests\TestCase;
-use Silber\Bouncer\BouncerFacade;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreatePostTest extends TestCase
@@ -46,8 +45,6 @@ class CreatePostTest extends TestCase
 
         //$user->allow('create', Post::class);
         $user->assign('author');
-
-        BouncerFacade::allow('author')->to('create', Post::class);
 
         $response = $this->post('admin/posts', [
             'title' => 'New post'
