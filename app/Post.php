@@ -21,4 +21,9 @@ class Post extends Model
     {
         return $this->status === 'published';
     }
+
+    public function isDraft()
+    {
+        return $this->status === 'draft';
+    }
 }

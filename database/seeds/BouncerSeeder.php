@@ -20,8 +20,8 @@ class BouncerSeeder extends Seeder
         // Allow the role 'admin' to have access to everything
         Bouncer::allow('admin')->everything();
         Bouncer::allow('author')->to('create', Post::class);
-        Bouncer::allow('editor')->to('update', Post::class);
-        Bouncer::allow('author')->toOwn(Post::class)->to('update'); // $user->id === $post->user_id
+        Bouncer::allow('editor')->to(['update','delete-draft'], Post::class);
+        Bouncer::allow('author')->toOwn(Post::class)->to(['update','delete-draft']); // $user->id === $post->user_id
 
     }
 
