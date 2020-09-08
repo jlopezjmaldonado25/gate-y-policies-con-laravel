@@ -6,6 +6,7 @@ use App\{
     Policies\OldPostPolicy,Post, User
 };
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -51,5 +52,13 @@ class AuthServiceProvider extends ServiceProvider
 
         //Gate::define('update-post', 'App\Policies\OldPostPolicy@update');
         //Gate::define('delete-post', 'App\Policies\OldPostPolicy@delete');
+
+        Gate::define('see-content', function(?User $user){
+
+            dump('see content');
+
+            return $user || Cookie::get('accept_terms') === '1';
+
+        });
     }
 }

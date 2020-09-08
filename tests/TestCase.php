@@ -45,6 +45,11 @@ abstract class TestCase extends BaseTestCase
         return factory(User::class)->create($attributes);
     }
 
+    protected function aUser(array $attributes = [])
+    {
+        return factory(User::class)->create($attributes);
+    }
+
     protected function createAdmin()
     {
         return tap(factory(User::class)->create(), function ($user) {

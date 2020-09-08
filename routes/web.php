@@ -22,6 +22,10 @@ Route::get('/', function () {
 //Route::put('admin/posts/{post}', 'Admin\PostController@update')->middleware('can:update,post');
 //Route::put('admin/posts/{post}', 'Admin\PostController@update');
 
+Route::get('posts/{post}', 'PostController@show');
+
+Route::post('accept-terms', 'AcceptTermsController@accept');
+
 Route::middleware('auth')->namespace('Admin\\')->prefix('admin/')->group(function () {
     Route::get('posts', 'PostController@index');
 
