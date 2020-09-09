@@ -55,9 +55,9 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('see-content', function(?User $user){
 
-            dump('see content');
+            //dump('see content');
 
-            return $user || Cookie::get('accept_terms') === '1';
+            return $user !== null || Cookie::get('accept_terms') === '1';
 
         });
     }
